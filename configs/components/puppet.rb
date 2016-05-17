@@ -135,6 +135,7 @@ component "puppet" do |pkg, settings, platform|
         --configs \
         --quick \
         --man \
+        --no-batch-files \
         --mandir=#{settings[:mandir]}"]
   end
 

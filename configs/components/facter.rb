@@ -189,6 +189,7 @@ component "facter" do |pkg, settings, platform|
         -DWITHOUT_CURL=#{skip_curl} \
         -DWITHOUT_BLKID=#{skip_blkid} \
         -DWITHOUT_JRUBY=#{skip_jruby} \
+        -DINSTALL_BATCH_FILES=OFF \
         #{java_includedir} \
         ."]
   end

@@ -28,6 +28,7 @@ component "hiera" do |pkg, settings, platform|
     --configs \
     --configdir=#{configdir} \
     --man \
+    --no-batch-files \
     --mandir=#{settings[:mandir]} \
     #{flags}"]
   end

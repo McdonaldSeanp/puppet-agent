@@ -1,6 +1,6 @@
 component 'augeas' do |pkg, settings, platform|
-  pkg.version '1.8.0'
-  pkg.md5sum 'cc99cf86ec5f5c4dac71f2800bde2758'
+  pkg.version '1.8.1'
+  pkg.md5sum '623ff89d71a42fab9263365145efdbfa'
   pkg.url "http://buildsources.delivery.puppetlabs.net/augeas-#{pkg.get_version}.tar.gz"
 
   pkg.replaces 'pe-augeas'

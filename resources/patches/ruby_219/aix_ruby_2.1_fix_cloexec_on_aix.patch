@@ -1,0 +1,33 @@
+From 22713bc9c9b0cbbe43ec82dda041bd6cb97dd816 Mon Sep 17 00:00:00 2001
+From: "Sean P. McDonald" <sean.mcdonald@puppetlabs.com>
+Date: Mon, 18 Sep 2017 15:07:33 -0700
+Subject: [PATCH] fix cloexec on aix
+# When the O_CLOEXEC flag is set for ruby file open, AIX ruby installations
+# fail because they cannot access the /dev/ directory (on AIX you can't access
+# that dir with cloexec).
+#
+# This patch simply edits out the CLOEXEC flag initialization, and is meant to be
+# used only on AIX
+---
+ io.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/io.c b/io.c
+index 08775f1..af4c0cb 100644
+--- a/io.c
++++ b/io.c
+@@ -228,10 +228,7 @@ int
+ rb_cloexec_open(const char *pathname, int flags, mode_t mode)
+ {
+     int ret;
+-#ifdef O_CLOEXEC
+-    /* O_CLOEXEC is available since Linux 2.6.23.  Linux 2.6.18 silently ignore it. */
+-    flags |= O_CLOEXEC;
+-#elif defined O_NOINHERIT
++#ifdef defined O_NOINHERIT
+     flags |= O_NOINHERIT;
+ #endif
+     ret = open(pathname, flags, mode);
+--
+2.7.4
+

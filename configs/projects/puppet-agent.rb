@@ -19,6 +19,10 @@ project "puppet-agent" do |proj|
   # at present, we need to conflict with pe-r10k < 2.5.0.0
   proj.conflicts "pe-r10k", "2.5.0.0"
 
+  if ENV['CPP_COMPONENT_DEBUG_SYM']
+    proj.setting(:debug_symbols, true)
+  end
+
   # Project level settings our components will care about
   if platform.is_windows?
     proj.setting(:company_name, "Puppet Inc")

@@ -66,10 +66,15 @@ component "pxp-agent" do |pkg, settings, platform|
     special_flags += " -DLEATHERMAN_USE_LOCALES=OFF "
   end
 
+  if settings[:debug_symbols]
+    build_type_flags = "-DCMAKE_BUILD_TYPE=Debug"
+  end
+
   pkg.configure do
     [
       "#{cmake}\
       #{toolchain} \
+      #{build_type_flags} \
           -DLEATHERMAN_GETTEXT=ON \
           -DCMAKE_VERBOSE_MAKEFILE=ON \
           -DCMAKE_PREFIX_PATH=#{settings[:prefix]} \

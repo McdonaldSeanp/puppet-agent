@@ -55,10 +55,15 @@ component "cpp-pcp-client" do |pkg, settings, platform|
     platform_flags = "-DLEATHERMAN_USE_LOCALES=OFF"
   end
 
+  if settings[:debug_symbols]
+    build_type_flags = "-DCMAKE_BUILD_TYPE=Debug"
+  end
+
   pkg.configure do
     [
       "#{cmake} \
       #{toolchain} \
+      #{build_type_flags} \
       #{platform_flags} \
           -DLEATHERMAN_GETTEXT=ON \
           -DCMAKE_VERBOSE_MAKEFILE=ON \

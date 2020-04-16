@@ -91,9 +91,14 @@ component "leatherman" do |pkg, settings, platform|
     pkg.environment "PATH", "/opt/pl-build-tools/bin:$(PATH)"
   end
 
+  if settings[:debug_symbols]
+    build_type_flags = "-DCMAKE_BUILD_TYPE=Debug"
+  end
+
   pkg.configure do
     ["#{cmake} \
         #{toolchain} \
+        #{build_type_flags} \
         -DLEATHERMAN_GETTEXT=ON \
         -DCMAKE_VERBOSE_MAKEFILE=ON \
         -DCMAKE_PREFIX_PATH=#{settings[:prefix]} \

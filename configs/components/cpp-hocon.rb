@@ -49,11 +49,16 @@ component "cpp-hocon" do |pkg, settings, platform|
     end
   end
 
+  if settings[:debug_symbols]
+    build_type_flags = "-DCMAKE_BUILD_TYPE=Debug"
+  end
+
   # Until we build our own gettext packages, disable using locales.
   # gettext 0.17 is required to compile .mo files with msgctxt.
   pkg.configure do
     ["#{cmake} \
         #{toolchain} \
+        #{build_type_flags} \
         -DCMAKE_VERBOSE_MAKEFILE=ON \
         -DCMAKE_PREFIX_PATH=#{settings[:prefix]} \
         -DCMAKE_INSTALL_PREFIX=#{settings[:prefix]} \
